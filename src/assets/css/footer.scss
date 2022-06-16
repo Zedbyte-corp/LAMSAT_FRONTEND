@@ -1,0 +1,147 @@
+$theme: #f9a392;
+$primary-text-color: #000;
+$secondary-text-color: #777;
+
+//Footer//
+.site-footer {
+  background: #ffffff;
+  display: inline-block;
+  width: 100%;
+  padding: 50px 0px 20px;
+  border-top: 1px solid #ddd;
+
+  .img_looogo img {
+    max-width: 18px;
+    margin-right: 5px;
+    filter: grayscale(1);
+  }
+
+  h4 {
+    color: $primary-text-color;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 25px;
+  }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type='number'] {
+    -moz-appearance: textfield;
+  }
+
+  ul {
+    display: inline-block;
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+    list-style: none;
+
+    li {
+      display: inline-block;
+      width: 100%;
+
+      a {
+        color: $secondary-text-color !important;
+        display: inline-block;
+        padding: 7px 0;
+        transition: 0.5s all;
+
+        &:hover {
+          //padding-left: 15px;
+          padding-left: 0px;
+        }
+
+        .anticon {
+          margin-right: 5px;
+        }
+      }
+    }
+  }
+
+  .logo {
+    margin-bottom: 40px;
+    text-align: center;
+  }
+
+  .desc {
+    color: $secondary-text-color;
+    margin-bottom: 10px;
+    padding-right: 50px;
+    line-height: 1.6;
+  }
+
+  .footer-top {
+    margin-bottom: 60px;
+  }
+
+  .copy-rights {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    padding: 25px 0;
+    color: $secondary-text-color;
+    border-top: 1px solid #ddd;
+
+    p {
+      margin-bottom: 0px;
+    }
+  }
+
+  .ant-back-top {
+    right: 40px;
+    bottom: 20px;
+  }
+}
+
+.enquiry-modal {
+  .ant-modal-content {
+    background-color: #fff;
+    width: 479px;
+    margin: auto;
+    border-radius: 15px;
+  }
+
+  .ant-modal-title {
+    font-size: 25px;
+  }
+
+  .ant-modal-body {
+    padding: 35px;
+  }
+
+  .ant-modal-header {
+    background: none;
+  }
+
+  .ant-btn-primary {
+    width: 100%;
+    font-size: 20px;
+    height: 45px;
+    text-transform: uppercase;
+    font-weight: 600;
+    text-shadow: inherit;
+    border-radius: 5px;
+  }
+
+  .ant-input {
+    height: 45px;
+    font-size: 17px;
+    border-radius: 5px;
+  }
+
+  .ant-modal-footer {
+    display: none;
+  }
+
+  .ant-modal-close {
+    outline: inherit !important;
+  }
+
+  .ant-form-item {
+    margin-bottom: 30px;
+  }
+}

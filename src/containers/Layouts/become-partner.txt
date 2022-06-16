@@ -1,0 +1,964 @@
+import React, { useEffect, useState } from "react";
+import {
+  Layout,
+  Row,
+  Col,
+  Switch,
+  Radio,
+  Input,
+  Form,
+  Checkbox,
+  Button,
+  Card,
+  Skeleton,
+  message,
+  Select,
+  Spin,
+  AutoComplete,
+  TimePicker,
+  Tooltip,
+  Upload,
+  InputNumber,
+} from "antd";
+import {
+  ExclamationCircleOutlined,
+  SearchOutlined,
+  StarOutlined,
+  CloseOutlined,
+  PlusCircleOutlined,
+} from "@ant-design/icons";
+import { Alert } from "antd";
+import "react-phone-number-input/style.css";
+import PhoneInput from "react-phone-number-input";
+import "assets/css/style.scss";
+import "assets/css/login-signup.scss";
+import { getLocaleMessages } from "redux/helper";
+import { useSelector, useDispatch } from "react-redux";
+import { formProps } from "containers/OnBoarding/constant";
+import { NavLink, useLocation } from "react-router-dom";
+import addressActions from "redux/admin/address/actions";
+import actions from "redux/auth/actions";
+import settingActions from "redux/Settings/actions";
+import actionsFileUpload from "redux/PartnerSignup/actions";
+import layoutActions from "redux/Layout/actions";
+import { history, store } from "redux/store";
+import { UploadOutlined } from "@ant-design/icons";
+import Mymap from "components/Admin/VendorProfile/Mymap";
+import moment from "moment";
+import adminvendorprofileAction from "redux/admin/adminvendorprofile/actions";
+import { joinSpans } from "@fullcalendar/react";
+import Geocode from "react-geocode";
+import ImageUploader from "components/Shared/ImageUpload";
+
+const { TextArea } = Input;
+
+const { Content } = Layout;
+
+const { Option } = Select;
+
+function onBlur() {}
+
+function onFocus() {}
+
+function onSearch(val) {}
+export default function Becomepartner(props) {
+  const dispatch = useDispatch();
+  const LayoutData = useSelector((state) => state.Layouts);
+  const { categoryLoader, categoryData } = LayoutData;
+  const [fullAddress, setFullAddress] = useState("");
+  const [ploading, setPLoading] = useState(false);
+  const [pAddress, setPAddress] = useState("");
+  const [pDistrict, setPDistrict] = useState("");
+  const [pRegion, setPRegion] = useState("");
+  const [pCode, setPCode] = useState("");
+  const { onLoginForgot, LoginSignup, loader } = props;
+  const { userCityList, userCountryList, loading, countryList } = useSelector(
+    (state) => state.Address
+  );
+  const mobileValidation = (event) => {};
+  const { fileUploadLoader } = useSelector((state) => state.PartnerSignup);
+
+  const { partnerLoader } = useSelector((state) => state.Auth);
+  const [getLatitude, setLatitude] = useState(23.880877208);
+  const [getLongitude, setLongitude] = useState(45.375830859);
+  const [form] = Form.useForm();
+  const [checked, setChecked] = useState(false);
+  const [partnerdetails, setPartnerdetails] = useState();
+  const [salondetails, setsalondetails] = useState();
+  const [staffdetails, setstaffdetails] = useState();
+  // console.log("this is the value of the partner login", partnerdetails);
+  const [nextpage1, setnextpage1] = useState(true);
+  const [nextpage2, setnextpage2] = useState(false);
+  const [nextpage3, setnextpage3] = useState(false);
+  const [staffCount, setstaffCount] = useState([1]);
+  const [options, setOptions] = useState([]);
+  const [drawer, setDrawer] = useState(false);
+  const [serviceSelected, setserviceSelected] = useState([]);
+  const [showVAT, setShowVAT] = useState(true);
+  const [show, setShow] = useState(true);
+  const [country, setCountry] = useState(1);
+  const [city, setCity] = useState(1);
+
+  const [isCrDocument, setIsCrDocument] = useState();
+  const [isVatDocument, setIsVatDocument] = useState();
+  const [isLogoDocument, setIsLogoDocument] = useState();
+  const [isBankDocument, setIsBankDocument] = useState();
+  const [issaloonImage, setIssaloonImage] = useState();
+
+  const [vatUrl, setVatUrl] = useState("");
+  const [crUrl, setCRUrl] = useState("");
+  const [bankcardUrl, setbankcardUrl] = useState("");
+  const [saloonUrl, setsaloonUrl] = useState([]);
+  const [logoPath, setLogoPath] = useState("");
+  const [logo, setlogo] = useState();
+  const [logopath, setlogopath] = useState();
+  const [cr, setcr] = useState();
+  const [crpath, setcrpath] = useState();
+  const [vat, setvat] = useState();
+  const [vatpath, setvatpath] = useState();
+  const [mobileprefix, setmobileprefix] = useState("+966");
+  // console.log("this si the value od the data in the document", logo, cr, vat);
+
+  const [duplicateEmail, setDuplicateEmail] = useState();
+  const [CRDocs, setCRDocs] = useState({ name: "" });
+  const [LogoDocs, setLogoDocs] = useState({ name: "" });
+  const [VATDocs, setVATDocs] = useState({ name: "" });
+  const [mondayTime, setmondayTime] = useState();
+  const [TuesdayTime, setTuesdayTime] = useState();
+  const [WednesdayTime, setWednesdayTime] = useState();
+  const [ThursdayTime, setThursdayTime] = useState();
+  const [FridayTime, setFridayTime] = useState();
+  const [SaturdayTime, setSaturdayTime] = useState();
+  const [SundayTime, setSundayTime] = useState();
+  // console.log("loading pl: " + partnerLoader);
+  // console.log("loading ful: " + fileUploadLoader);
+  const hearAboutFresha = (e) => {};
+  const handlepartnerAddress = (e) => {
+    e.preventDefault();
+    setPAddress(pAddress);
+  };
+  const handleSearch = (value) => {
+    setOptions(
+      !value
+        ? []
+        : [
+            {
+              value,
+            },
+            {
+              value: value + value,
+            },
+            {
+              value: value + value + value,
+            },
+          ]
+    );
+  };
+  const onSelect = (value) => {};
+  const handleCloseDraw = () => {
+    setDrawer(!drawer);
+  };
+  const handleKeyPress = (ev) => {};
+
+  const dummyRequest = ({ file, onSuccess }) => {
+    setTimeout(() => {
+      onSuccess("ok");
+    }, 0);
+  };
+  const onChangePartnerService = (e) => {};
+
+  const handleCountryChange = (value) => {
+    form.setFieldsValue({ country: parseInt(value) });
+    setCountry(value);
+    // console.log("setcountry", value);
+    // console.log("country =>", { country: parseInt(value) });
+    dispatch({
+      type: addressActions.GET_USER_CITY_LIST,
+      countryid: value,
+    });
+  };
+  const getLatLng = (event) => {
+    console.log("event in the map", event, getLatitude, getLongitude);
+    setLatitude(event.latLng.lat());
+    setLongitude(event.latLng.lng());
+  };
+  Geocode.setApiKey("AIzaSyADWxNxOiNs0LRXkgRb2qlmz2BPGycoOJ4");
+  Geocode.enableDebug();
+
+  Geocode.fromLatLng(getLatitude, getLongitude).then(
+    (response) => {
+      const address = response.results[0].formatted_address;
+      setFullAddress(response.results[0].formatted_address);
+      form.setFieldsValue({
+        partnerAddress: response.results[0].formatted_address,
+      });
+      console.log("fulladdress", fullAddress);
+      console.log("results", response.results);
+      {
+        /** 
+      if (response) {
+        console.log("address", pAddress);
+        setPAddress(
+          response.results[0].address_components[0].long_name
+            ? response.results[0].address_components[0].long_name
+            : " " + " " + response.results[0].address_components[1].long_name
+            ? response.results[0].address_components[1].long_name
+            : " "
+        );
+        setPDistrict(
+          response.results[0].address_components[2].long_name
+            ? response.results[0].address_components[2].long_name
+            : " "
+        );
+        setPRegion(
+          response.results[0].address_components[3].long_name
+            ? response.results[0].address_components[3].long_name
+            : ""
+        );
+        setPCode(
+          response.results[0].address_components[5].long_name
+            ? response.results[0].address_components[5].long_name
+            : " "
+        );
+      } */
+      }
+    },
+    (error) => {
+      console.error(error);
+    }
+  );
+
+  const settLatLng = (lat, lng) => {
+    setLatitude(lat);
+    setLongitude(lng);
+    // console.log("this si the value of the latitude and lnggg", lat, lng);
+  };
+  const handleCityChange = (value) => {
+    setCity(value);
+    form.setFieldsValue({ city: parseInt(value) });
+    // console.log("city =>", { city: parseInt(value) });
+    // console.log("setcity", value);
+  };
+
+  const onLogoChange = ({ file }, doctype) => {};
+  const onNextPage = (values) => {
+    values = {
+      ...values,
+      username: values.firstname + values.lastname,
+      // vatdocument_url: vat && vat,
+      // crdocument_url: cr,
+      // logodocument: logo,
+      contactnumber: values["phonenumber"],
+      phonenumber: values["phonenumber"],
+      values: null,
+      privacy_policy: 1,
+    };
+    localStorage.setItem("lamsat-patner-details", JSON.stringify(values));
+
+    const emailVarification = {
+      email_address: values.email,
+      mobile: values.phonenumber,
+    };
+
+    store.dispatch({
+      type: actions.VALIDATE_PARTNER_EMAIL,
+      payload: emailVarification,
+      callBackAction: (response) => {
+        if (response.status == 200) {
+          setPartnerdetails(values);
+          //console.log("values",values);
+          //  nextPage();
+        } else {
+          setDuplicateEmail("Email id or contact number is already exist!");
+        }
+      },
+    });
+  };
+  useEffect(() => {
+    store.dispatch({
+      type: layoutActions.GET_LAYOUT_CATEGORIES,
+    });
+    store.dispatch({
+      type: addressActions.GET_ADMIN_COUNTRY_LIST,
+    });
+  }, []);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShow(true);
+    }, 5000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const onChange = (e) => {
+    setChecked(e.target.checked);
+  };
+
+  const vendor_details = JSON.parse(
+    localStorage.getItem("lamsat-patner-details")
+  );
+
+  const onFinish = (values) => {
+    // console.log("values", values);
+    console.log(values.partnerAddress);
+    const me = {
+      services: serviceSelected,
+      category: serviceSelected,
+      prefix: mobileprefix,
+      Address: values.partnerAddress,
+      hearAboutFresha: values.hearAboutFresha,
+      partnerAddress: values.partnerAddress,
+      partnerDistrict: salondetails.partnerDistrict,
+      partnerPostcode: salondetails.partnerPostcode,
+      partnerRegion: salondetails.partnerRegion,
+      vatdocument_url: vat,
+      crdocument_url: cr,
+      logo_path: logo,
+      logodocument: logo,
+      vatnumber: values.vatnumber,
+      vatpercent: parseInt(values.vatpercent),
+      isVAT: showVAT ? 1 : 2,
+      bankaccountnumber: values.accountName,
+      bankaccountname: values.accountName,
+      bankdocument_url: bankcardUrl,
+      bankname: values.bankName,
+      latitude: getLatitude,
+      longitude: getLongitude,
+      bankiban: values.IBAN,
+      serviceavilable:
+        values.availableFor.length > 1 ? 3 : values.availableFor[0],
+      saloonphone: salondetails.saloonPhoneNumber,
+      mobile_number: salondetails.saloonContactNumber,
+      saloonemail: salondetails.saloonEmail,
+      images: saloonUrl,
+      teamsize: parseInt(values.teamSize),
+      email_address: vendor_details.email,
+      cityid: salondetails.cityid,
+      countryid: salondetails.countryid,
+      mobile: salondetails.saloonContactNumber,
+      partnerconfirmpassword: vendor_details.confirmpassword,
+      partnerpassword: vendor_details.password,
+      salonphonenumber: vendor_details.phonenumber,
+      staffs: staffdetails.staff,
+      language: [
+        {
+          id: 1,
+          languagekey: "de58615b-9cbc-49d5-bd91-b6cb993efba3",
+          languagename: "English",
+          languageshortname: "en",
+          status: 1,
+          created_by: 1,
+          created_at: "2021-03-01T06:12:30.355Z",
+          updated_by: null,
+          updated_at: null,
+          version: null,
+          vendorname: salondetails.saloonname,
+          vendordescription: salondetails.description,
+          vendoraddress: salondetails.partnerAddress,
+        },
+        {
+          id: 2,
+          languagekey: "83c6709e-a00b-4eb1-8937-6776110945f0",
+          languagename: "Arabic",
+          languageshortname: "ar",
+          status: 1,
+          created_by: 1,
+          created_at: "2021-03-01T06:13:31.629Z",
+          updated_by: null,
+          updated_at: null,
+          version: null,
+          vendorname: salondetails.saloonname,
+          vendordescription: salondetails.description,
+          vendoraddress: salondetails.partnerAddress,
+        },
+      ],
+      partnertime: [
+        {
+          days: "Sunday",
+          starttime:
+            SundayTime && SundayTime.startTime
+              ? SundayTime.startTime
+              : "10:00:00",
+          endtime:
+            SundayTime && SundayTime.endTime ? SundayTime.endTime : "18:00:00",
+          partnerstatus: "0",
+        },
+        {
+          days: "Monday",
+          starttime:
+            mondayTime && mondayTime.startTime
+              ? mondayTime.startTime
+              : "10:00:00",
+          endtime:
+            mondayTime && mondayTime.endTime ? mondayTime.endTime : "18:00:00",
+          partnerstatus: "0",
+        },
+        {
+          days: "Tuesday",
+          starttime:
+            TuesdayTime && TuesdayTime.startTime
+              ? TuesdayTime.startTime
+              : "10:00:00",
+          endtime:
+            TuesdayTime && TuesdayTime.endTime
+              ? TuesdayTime.endTime
+              : "18:00:00",
+          partnerstatus: "0",
+        },
+        {
+          days: "Wednesday",
+          starttime:
+            WednesdayTime && WednesdayTime.startTime
+              ? WednesdayTime.startTime
+              : "10:00:00",
+          endtime:
+            WednesdayTime && WednesdayTime.endTime
+              ? WednesdayTime.endTime
+              : "18:00:00",
+          partnerstatus: "0",
+        },
+        {
+          days: "Thursday",
+          starttime:
+            ThursdayTime && ThursdayTime.startTime
+              ? ThursdayTime.startTime
+              : "10:00:00",
+          endtime:
+            ThursdayTime && ThursdayTime.endTime
+              ? ThursdayTime.endTime
+              : "18:00:00",
+          partnerstatus: "0",
+        },
+        {
+          days: "Friday",
+          starttime:
+            FridayTime && FridayTime.startTime
+              ? FridayTime.startTime
+              : "10:00:00",
+          endtime:
+            FridayTime && FridayTime.endTime ? FridayTime.endTime : "18:00:00",
+          partnerstatus: "0",
+        },
+        {
+          days: "Saturday",
+          starttime:
+            SaturdayTime && SaturdayTime.startTime
+              ? SaturdayTime.startTime
+              : "10:00:00",
+          endtime:
+            SaturdayTime && SaturdayTime.endTime
+              ? SaturdayTime.endTime
+              : "18:00:00",
+          partnerstatus: "0",
+        },
+      ],
+    };
+    // let myname = { ...me, values };
+    // console.log("values", myname);
+    setPartnerdetails({ ...partnerdetails, ...me, ...salondetails });
+    // console.log("this is the value of the data int eh ddd", partnerdetails);
+    // console.log(
+    //   "this is the value of the data int eh ddd***************************************"
+    // );
+    // console.log(
+    //   "this is the value of the data int eh dddmeeeeeeeeeeeeeeeeeeee",
+    //   me
+    // );
+
+    store.dispatch({
+      type: actions.CREATE_PARTNER_ACCOUNT,
+      payload: { ...partnerdetails, ...me, ...salondetails },
+    });
+  };
+  const onFinishFailed = (errorInfo) => {};
+  return (
+    <>
+      <section className="login-dashboard partner">
+        <div className="login-box">
+          <NavLink to={"/"} className="back_to_page">
+            <CloseOutlined />
+          </NavLink>
+
+          <div className="login-headers">
+            <div>
+              <NavLink to={"/"}>
+                <img src={require("../../assets/img/logo-clolor.png")} alt="" />
+              </NavLink>
+            </div>
+            <h2 style={{ color: "#f9a392" }}>Please enter user details</h2>
+          </div>
+          <>
+            {duplicateEmail && (
+              <Alert
+                message={duplicateEmail}
+                type="error"
+                showIcon
+                closable
+                style={{ marginBottom: "3%" }}
+              />
+            )}
+            <Spin size="large" spinning={loading}>
+              <Form
+                {...formProps}
+                form={form}
+                onFinish={onFinish}
+                onFinishFailed={onFinishFailed}
+                initialValues={{
+                  mobile_number: {
+                    countrycode: "+966",
+                  },
+                }}
+                className="partners-form"
+              >
+                <Row gutter={30}>
+                  <Col span={12}>
+                    <Form.Item
+                      name="firstname"
+                      rules={[
+                        {
+                          required: true,
+                          whitespace: true,
+                          message: getLocaleMessages({
+                            id: "Please enter first name!",
+                          }),
+                        },
+                      ]}
+                    >
+                      <Input placeholder="First Name" />
+                    </Form.Item>
+                  </Col>
+                  <Col span={12}>
+                    <Form.Item
+                      name="lastname"
+                      rules={[
+                        {
+                          required: true,
+                          whitespace: true,
+                          message: getLocaleMessages({
+                            id: "Please enter last name!",
+                          }),
+                        },
+                      ]}
+                    >
+                      <Input placeholder="Last Name" />
+                    </Form.Item>
+                  </Col>
+                </Row>
+
+                <Row gutter={30}>
+                  <Col span={12}>
+                    <Form.Item
+                      name="email"
+                      rules={[
+                        {
+                          required: true,
+                          whitespace: true,
+                          type: "email",
+                          message: getLocaleMessages({
+                            id: "Please enter email",
+                          }),
+                        },
+                      ]}
+                    >
+                      <Input placeholder="Email address" />
+                    </Form.Item>
+                  </Col>
+                  <Col span={12}>
+                    <Form.Item name="mobile_number">
+                      <Input.Group compact>
+                        <Form.Item
+                          name={"phonenumber"}
+                          rules={[
+                            {
+                              required: true,
+                              message: getLocaleMessages({
+                                id: "staff.contact.error",
+                              }),
+                            },
+                            {
+                              min: 12,
+                              message:
+                                "Contact number should be minimum 12 digits.",
+                            },
+                            {
+                              max: 16,
+                              message:
+                                "Contact number should be maximum 16 digits.",
+                            },
+                          ]}
+                        >
+                          <PhoneInput
+                            onChange={(event) => {
+                              mobileValidation(event);
+                            }}
+                            international
+                            defaultCountry="SA"
+                            initialValueFormat="national"
+                            countryCallingCodeEditable={false}
+                          />
+                        </Form.Item>
+                      </Input.Group>
+                    </Form.Item>
+                  </Col>
+                </Row>
+                <Row gutter={30}>
+                  <Col span={12}>
+                    <Form.Item
+                      name="password"
+                      rules={[
+                        {
+                          required: true,
+                          whitespace: true,
+                          message: "Please input your Password!",
+                        },
+                        {
+                          min: 6,
+                          message: "Password must be minimum 6 characters.",
+                        },
+                        {
+                          max: 16,
+                          message: "Password can be maximum 16 characters.",
+                        },
+                      ]}
+                    >
+                      <Input.Password type="password" placeholder="Password" />
+                    </Form.Item>
+                  </Col>
+                  <Col span={12}>
+                    <Form.Item
+                      name="confirmpassword"
+                      rules={[
+                        {
+                          required: true,
+                          whitespace: true,
+                          message: "Please confirm your Password!",
+                        },
+                        {
+                          min: 6,
+                          message:
+                            "Confirm password must be minimum 6 characters.",
+                        },
+                        {
+                          max: 16,
+                          message:
+                            "Confirm password can be maximum 16 characters.",
+                        },
+                      ]}
+                    >
+                      <Input.Password
+                        type="password"
+                        placeholder="Confirm Password"
+                      />
+                    </Form.Item>
+                  </Col>
+                </Row>
+                <article>
+                  <div className="login-headers">
+                    <h2 style={{ color: "#f9a392" }}>
+                      Please enter salon details
+                    </h2>
+                  </div>
+                  <h5> Salon Information :</h5>
+                  <Form.Item
+                    name="saloonname"
+                    rules={[
+                      {
+                        required: true,
+                        whitespace: true,
+                        message: getLocaleMessages({
+                          id: "Please enter saloon name!",
+                        }),
+                      },
+                    ]}
+                  >
+                    <Input placeholder="Saloon Name" />
+                  </Form.Item>
+                  <Form.Item
+                    name={"description"}
+                    // label={getLocaleMessages({ id: "Address" })}
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please input the description!",
+                      },
+                    ]}
+                  >
+                    <TextArea placeholder="Description" />
+                  </Form.Item>
+                  <h5> Salon Contact :</h5>
+                  <p style={{ color: "#7a7a73", fontSize: "18px" }}>
+                    These contact will be present to customers
+                  </p>
+                  <Row gutter={30}>
+                    <Col span={12}>
+                      <Form.Item
+                        name="saloonContactNumber"
+                        rules={[
+                          {
+                            required: false,
+                            message: getLocaleMessages({
+                              id: "staff.contact.error",
+                            }),
+                          },
+                          {
+                            min: 12,
+                            message:
+                              "Contact number should be minimum 12 digits.",
+                          },
+                          {
+                            max: 16,
+                            message:
+                              "Contact number should be maximum 16 digits.",
+                          },
+                        ]}
+                      >
+                        <PhoneInput
+                          onChange={(event) => {
+                            mobileValidation(event);
+                          }}
+                          international
+                          defaultCountry="SA"
+                          placeholder="Contact Number"
+                          initialValueFormat="national"
+                          countryCallingCodeEditable={false}
+                        />
+                      </Form.Item>
+                    </Col>
+                    <Col span={12}>
+                      <Form.Item
+                        name="saloonEmail"
+                        rules={[
+                          {
+                            type: "email",
+                            required: true,
+                            message: "Please enter Your Email",
+                          },
+                        ]}
+                      >
+                        <Input placeholder="Email" />
+                      </Form.Item>
+                    </Col>
+                    <Col span={12}>
+                      <Form.Item
+                        name="saloonPhoneNumber"
+                        rules={[
+                          {
+                            required: false,
+                            message: "Please enter Your Phone Number",
+                          },
+                        ]}
+                      >
+                        <Input placeholder="Phone Number (Optional)" />
+                      </Form.Item>
+                    </Col>
+                  </Row>
+                  <h5> Salon Address :</h5>
+                  <Form.Item
+                    name="Address"
+                    style={{ display: "none" }}
+                    rules={[
+                      {
+                        required: false,
+                        whitespace: true,
+                        message: "",
+                      },
+                    ]}
+                  >
+                    <AutoComplete
+                      options={options}
+                      onSelect={onSelect}
+                      onSearch={handleSearch}
+                    >
+                      <Input
+                        placeholder="Choose your location"
+                        className="custom"
+                        size="large"
+                        prefix={<SearchOutlined />}
+                        onKeyPress={handleKeyPress}
+                        suffix={
+                          <Tooltip title="Close">
+                            <CloseOutlined onClick={handleCloseDraw} />
+                          </Tooltip>
+                        }
+                      />
+                    </AutoComplete>
+                  </Form.Item>
+
+                  <Row gutter={30}>
+                    <Col span={12}>
+                      <Form.Item
+                        name="partnerAddress"
+                        onChange={handlepartnerAddress}
+                        rules={[
+                          {
+                            required: true,
+
+                            message: "Please enter your address",
+                          },
+                        ]}
+                      >
+                        <Input placeholder="Address" />
+                      </Form.Item>
+                    </Col>
+                    <Col span={12}>
+                      <Form.Item
+                        name="partnerPostcode"
+                        rules={[
+                          {
+                            required: true,
+                            message: "Please enter Your Postcode",
+                          },
+                        ]}
+                      >
+                        <Input placeholder="Postcode" />
+                      </Form.Item>
+                    </Col>
+                  </Row>
+                  <Row gutter={30}>
+                    <Col span={12}>
+                      <Form.Item
+                        name="countryid"
+                        rules={[
+                          {
+                            required: true,
+                            message: getLocaleMessages({
+                              id: "Please select a country!",
+                            }),
+                          },
+                        ]}
+                      >
+                        <Select
+                          showSearch
+                          allowClear
+                          optionFilterProp="children"
+                          filterOption={(input, option) =>
+                            option.children
+                              .toLowerCase()
+                              .indexOf(input.toLowerCase()) >= 0
+                          }
+                          autoComplete={"off"}
+                          placeholder={"Please select country"}
+                          dropdownStyle={{ minWidth: "200px" }}
+                          onChange={handleCountryChange}
+                        >
+                          {countryList &&
+                            countryList.length > 0 &&
+                            countryList.map((list, id) => {
+                              return (
+                                <Select.Option value={list.id} key={id}>
+                                  {list.countryname}
+                                </Select.Option>
+                              );
+                            })}
+                        </Select>
+                      </Form.Item>
+                    </Col>
+                    <Col span={12}>
+                      <Form.Item
+                        name="cityid"
+                        rules={[
+                          {
+                            required: true,
+                            message: getLocaleMessages({
+                              id: "Please select a city!",
+                            }),
+                          },
+                        ]}
+                      >
+                        <Select
+                          showSearch
+                          allowClear
+                          optionFilterProp="children"
+                          filterOption={(input, option) =>
+                            option.children
+                              .toLowerCase()
+                              .indexOf(input.toLowerCase()) >= 0
+                          }
+                          autoComplete={"off"}
+                          placeholder={"Please select city"}
+                          dropdownStyle={{ minWidth: "200px" }}
+                          onChange={handleCityChange}
+                        >
+                          {userCityList &&
+                            userCityList.length > 0 &&
+                            userCityList.map((list, id) => {
+                              console.log("list =>", list);
+                              return (
+                                <Select.Option
+                                  value={parseInt(list.id)}
+                                  key={id}
+                                >
+                                  {list.cityname}
+                                </Select.Option>
+                              );
+                            })}
+                        </Select>
+                      </Form.Item>
+                    </Col>
+                  </Row>
+                  <h5>Salon Map</h5>
+                  <Col span={24}>
+                    <Form.Item>
+                      <Mymap
+                        latitude={getLatitude}
+                        longitude={getLongitude}
+                        getLatLng={getLatLng}
+                        settLatLng={(lat, lng) => {
+                          settLatLng(lat, lng);
+                        }}
+                      />
+                    </Form.Item>
+                  </Col>
+                </article>
+                <div className="agree">
+                  <Form.Item
+                    name="agree"
+                    valuePropName="checked"
+                    //validateTrigger={['onSubmit']}
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please accept the terms & conditions!",
+                      },
+                    ]}
+                  >
+                    <Checkbox onChange={onChange}>
+                      I agree to the &nbsp;
+                      <a
+                        className="login-form-forgot"
+                        href="/cmspage/28"
+                        target="_blank"
+                      >
+                        Terms &amp; Conditions
+                      </a>
+                    </Checkbox>
+                  </Form.Item>
+                </div>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  className="login-form-button"
+                  loading={loader}
+                >
+                  Submit
+                </Button>
+              </Form>
+            </Spin>
+          </>
+          <NavLink to={"/vendor/login"} className="new new-10">
+            Already have a professional account? <span>Sign in</span>
+          </NavLink>
+
+          <div className="become-partner">
+            <h2>Booking as a customer?</h2>
+            <p>
+              <NavLink to={"/auth?type=login"} className="new">
+                This is the partner area,
+                <br /> please go to <span> booker login instead</span>
+              </NavLink>{" "}
+            </p>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}

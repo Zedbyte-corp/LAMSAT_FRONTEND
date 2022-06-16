@@ -1,0 +1,7 @@
+const actions = {
+    UPLOAD_FILE: 'UPLOAD_FILE',
+    UPLOAD_FILE_SUCCESS: 'UPLOAD_FILE_SUCCESS',
+    UPLOAD_FILE_FAILURE: 'UPLOAD_FILE_FAILURE',
+};
+
+export default actions;

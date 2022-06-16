@@ -1,0 +1,65 @@
+@import 'style.scss';
+
+.cms-page {
+  display: inline-block;
+  width: 100%;
+  padding: 40px 0;
+  margin-top: 86px;
+
+  .bc-to-home {
+    color: inherit;
+    margin-bottom: 20px;
+    display: inline-block;
+  }
+
+  .bb-box {
+    display: inline-block;
+    width: 100%;
+    padding: 25px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+
+  h2 {
+    font-size: 22px;
+    margin-bottom: 20px;
+    font-weight: 600;
+  }
+
+  p {
+    display: inline-block;
+    width: 100%;
+    line-height: 1.5;
+    color: #666;
+  }
+
+  .ant-collapse-header {
+    background: #f1f1f1;
+    font-size: 16px;
+  }
+
+  .ant-collapse-content {
+    padding: 10px;
+    border: 1px solid #eee;
+    background: #fff;
+
+    p {
+      margin-bottom: 0px;
+      font-size: 16px;
+      color: #666;
+    }
+  }
+
+  .ant-collapse-item {
+    border: none;
+    margin-bottom: 20px;
+  }
+
+  .ant-collapse-borderless {
+    background: none;
+  }
+
+  .ant-collapse-arrow {
+    color: #a5881c !important;
+  }
+}

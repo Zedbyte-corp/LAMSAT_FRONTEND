@@ -1,0 +1,156 @@
+.modal-ui-1 {
+	max-width: 468px;
+	padding: 20px 0;
+
+	.ant-modal-content {
+		background-color: #fff;
+		padding: 20px;
+
+		.ant-modal-body {
+			padding: 20px 50px;
+			font-size: 16px;
+
+			h2 {
+				font-size: 24px;
+				font-weight: 600;
+				margin-bottom: 20px;
+			}
+		}
+	}
+
+	.ant-modal-close {
+		background: #fff;
+		border-radius: 50%;
+		top: 15px;
+		right: 15px;
+
+		.ant-modal-close-x {
+			width: 35px;
+			height: 35px;
+			line-height: 35px;
+			color: #000;
+		}
+	}
+
+	.ant-input {
+		height: 50px;
+		border: 1px solid #d8d8d8;
+		font-size: 16px;
+		border-radius: 5px;
+		box-shadow: 0px 0px 4px 0px #00000012;
+	}
+
+	.forgotLink {
+		text-align: right;
+		margin-bottom: 15px;
+		cursor: pointer;
+
+		a {
+			color: #a9a8a8;
+		}
+	}
+
+	.ant-btn-primary {
+		width: 100%;
+		height: 50px;
+		border-radius: 5px;
+		font-size: 18px;
+		border: none;
+		background: #f9a392;
+		text-shadow: none;
+		font-weight: 600;
+
+		&:hover,
+		&:focus {
+			background: #e78b79;
+		}
+	}
+
+	.or {
+		display: inline-block;
+		width: 100%;
+		text-align: center;
+		margin-top: 5px;
+		margin-bottom: 15px;
+		color: #b0afaf;
+		font-size: 16px;
+	}
+
+	.contactsocial {
+		display: inline-block;
+		width: 100%;
+		text-align: center;
+		margin-bottom: 15px;
+
+		.btns {
+			width: 40px;
+			height: 40px;
+			text-align: center;
+			line-height: 40px;
+			display: inline-block;
+			border: 1px solid #705783;
+			border-radius: 50%;
+			font-size: 20px;
+			margin: 0 6px;
+			cursor: pointer;
+			color: #231f20;
+		}
+	}
+
+	.new {
+		text-align: center;
+		color: #231f20;
+		margin-bottom: 0px;
+
+		span {
+			color: #c357ac;
+			cursor: pointer;
+		}
+	}
+
+	.ant-form-item {
+		margin-bottom: 20px;
+	}
+
+	.ant-form label,
+	.login-form-forgot {
+		font-size: 16px;
+	}
+
+	.login-form-forgot {
+		color: #c357ac;
+	}
+
+	.ant-form label {
+		color: #231f20;
+	}
+}
+
+.modal-otp .ant-modal-content {
+	background-color: #fff;
+}
+
+.ant-form-item-four {
+	display: flex;
+	margin-bottom: 20px;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.modal-ui-1 .ant-form-item-four .ant-input {
+	width: 50px;
+	text-align: center;
+	font-size: 18px;
+	font-weight: bold;
+	padding: 0px;
+}
+
+.customOTPbox {
+	justify-content: space-between;
+	width: 100%;
+}
+
+.customOTPbox input {
+	font-size: 21px;
+	font-weight: 600;
+}

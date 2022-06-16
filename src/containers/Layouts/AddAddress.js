@@ -1,0 +1,345 @@
+import React, { useState, useEffect } from 'react';
+import {
+  Row,
+  Col,
+  Input,
+  Select,
+  Card,
+  Modal,
+  Form,
+  Switch,
+  Button,
+  Tabs,
+  DatePicker,
+  message,
+  Spin,
+} from 'antd';
+import { formProps } from 'containers/OnBoarding/constant';
+import 'assets/css/dashboard.scss';
+import { getLocaleMessages } from 'redux/helper';
+import { checkValid, getLocalData, getLocalDataType } from 'redux/helper';
+import ImageUploader from 'components/Shared/ImageUpload';
+import { useSelector, useDispatch } from 'react-redux';
+import actions from 'redux/vendor/Services/actions';
+import Action from 'redux/AddressBook/actions';
+import { store } from 'redux/store';
+import settingActions from 'redux/Settings/actions';
+import Mymap from 'components/Admin/VendorProfile/Mymap';
+
+const { TabPane } = Tabs;
+const { TextArea } = Input;
+
+function callback(key) {
+}
+const CreateAddress = (props) => {
+  const dispatch = useDispatch();
+  const [form] = Form.useForm();
+  const { AddModalVisible, setAddModalVisible, countryList } = props;
+  const { cityList } = useSelector((state) => state.AddressBook);
+  //const { modalVisible, setModalVisible } = props;
+  const { loading } = useSelector((state) => state.Services);
+  const { categoryCreated } = useSelector((state) => state.Services);
+
+  const { lat, lng } = useSelector((state) => state.AdminVendorProfile);
+  const [flatNo, setFlatNo] = useState(0);
+  const [state, setstate] = useState('');
+  const [address, setAddress] = useState('');
+  const [landmark, setLandmark] = useState('');
+  const [countryy, setCountryy] = useState('');
+  const [cityy, setCityy] = useState('');
+  const [postalCode, setPostalCode] = useState(0);
+
+  const [latitude, setLatitude] = useState(lat);
+  const [longitude, setLongitude] = useState(lng);
+
+  useEffect(() => {
+    const url =
+      'https://maps.googleapis.com/maps/api/geocode/json?address=' +
+      latitude +
+      ',' +
+      longitude +
+      '&key=' +
+      'AIzaSyADWxNxOiNs0LRXkgRb2qlmz2BPGycoOJ4';
+    async function mapAddress() {
+      const response = await fetch(url);
+      const data = await response.json();
+
+      data.results.map((data, index) => {
+        switch (index) {
+          case 0:
+            setFlatNo(data.formatted_address);
+            break;
+          case 1:
+            setCityy(data.formatted_address);
+            break;
+          case 2:
+            setAddress(data.formatted_address);
+            break;
+          case 3:
+            setCountryy(data.formatted_address);
+            break;
+          default:
+            break;
+        }
+      });
+    }
+    mapAddress();
+  }, [latitude, longitude]);
+
+  const onFinish = (values) => {
+
+    values['userid'] = getLocalData('id');
+
+    store.dispatch({
+      type: Action.ADD_ADDRESS,
+      payload: values,
+      callBackAction: (status) => {
+        if (status == 200) {
+          setAddModalVisible(false);
+        }
+      },
+    });
+    //setAddModalVisible(false)
+  };
+  const onFinishFailed = (errorInfo) => {
+
+  };
+
+  const { Option } = Select;
+  const handleChange = (value) => {
+    form.setFieldsValue({ country: value });
+    dispatch({
+      type: Action.GETALL_CITY,
+      countryid: value,
+    });
+  };
+
+  const prefixSelector = (
+    <Form.Item
+      name="prefix"
+      noStyle
+      rules={[{ required: false, message: 'Select Country code!' }]}
+    >
+      <Select
+        defaultValue="966"
+        style={{
+          width: 90,
+        }}
+      >
+        <Option value="966">+966</Option>
+      </Select>
+    </Form.Item>
+  );
+
+  const country = [];
+  var countryListcont =
+    countryList.length > 0
+      ? countryList.map((countryLst) => {
+          let obj = {
+            label: countryLst.language[0].countryname,
+            value: countryLst.id,
+          };
+          country.push(obj);
+        })
+      : '';
+
+  const city = [];
+  var cityListcont =
+    cityList.length > 0
+      ? cityList.map((cityLst) => {
+          let obj = { label: cityLst.cityname, value: cityLst.cityid };
+          city.push(obj);
+        })
+      : '';
+
+  const onChange = (checked) => {
+
+  };
+
+  const nameConfig = {
+    rules: [
+      {
+        required: true,
+        message: getLocaleMessages({ id: 'categoryname.error' }),
+      },
+    ],
+  };
+
+  const onresetboost = () => {
+    setTimeout(() => {
+      form.resetFields();
+    }, 3000);
+  };
+
+  const checkPrice = (value) => {
+    if (value.landmark != null) {
+      return Promise.resolve();
+    } else {
+      return Promise.reject(new Error('Price must be greater than zero!'));
+    }
+  };
+
+  const onDropImage = (pictureFiles) => {};
+
+  const getLatLng = (event) => {
+    setLatitude(event.latLng.lat());
+    setLongitude(event.latLng.lng());
+  };
+
+  return (
+    <Modal
+      className="create_category_modal"
+      title="Address"
+      centered
+      visible={AddModalVisible}
+      onOk={() => setAddModalVisible(false)}
+      onCancel={() => setAddModalVisible(false)}
+      width={800}
+      destroyOnClose={true}
+      footer={false}
+    >
+      <Spin size="large" spinning={loading}>
+        <Form
+          {...formProps}
+          form={form}
+          layout="vertical"
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+        >
+          <div className="address_map">
+            <Mymap latitude={latitude} longitude={longitude} getLatLng={getLatLng} />
+          </div>
+
+          <Row gutter={30}>
+            <Col sm={12} md={12}>
+              <Form.Item
+                name={'fullname'}
+                label={getLocaleMessages({ id: 'Full Name' })}
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please input your first & last name!',
+                  },
+                ]}
+              >
+                <Input />
+              </Form.Item>
+
+              <Form.Item
+                name={'mobile'}
+                label={getLocaleMessages({ id: 'Mobile number' })}
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please input your Mobile number!',
+                  },
+                ]}
+              >
+                <Input
+                  type="number"
+                  addonBefore={prefixSelector}
+                  style={{
+                    width: '100%',
+                  }}
+                />
+              </Form.Item>
+
+              <Form.Item
+                name={'flatno'}
+                // label={getLocaleMessages({ id: "Flat" })}
+                label={flatNo}
+                rules={[
+                  {
+                    required: true,
+                    message:
+                      'Please input your House,Flat no.,Building, Company, Apartment!',
+                  },
+                ]}
+              >
+                <Input placeholder="Flat No." />
+              </Form.Item>
+              <Form.Item
+                name={'address'}
+                // label={getLocaleMessages({ id: "Address" })}
+                label={address}
+                rules={[
+                  { required: true, message: 'Please input your Address!' },
+                ]}
+              >
+                <TextArea placeholder="Address" />
+              </Form.Item>
+            </Col>
+            <Col sm={12} md={12}>
+              <Form.Item
+                name="landmark"
+                label={getLocaleMessages({ id: 'Landmark' })}
+                rules={[{ validator: checkPrice }]}
+              >
+                <Input placeholder="Landmark" />
+              </Form.Item>
+
+              <Form.Item
+                name="country"
+                // label="Country"
+                label={countryy}
+                rules={[{ required: true, message: 'Country Select one!' }]}
+              >
+                {/* <Select options={country} onChange={handleChange} /> */}
+                <Input placeholder="Country" />
+              </Form.Item>
+
+              <Form.Item
+                name="city"
+                label={cityy}
+                rules={[{ required: true, message: 'City Select one!' }]}
+              >
+                {/* <Select options={city} /> */}
+                <Input placeholder="City" />
+              </Form.Item>
+
+              <Form.Item
+                name={'postal'}
+                label={getLocaleMessages({ id: 'Postal Code' })}
+                rules={[
+                  { required: true, message: 'Please input your Phone!' },
+                ]}
+              >
+                <Input type="number" />
+              </Form.Item>
+              {/*  <Form.Item
+                    name={'country'}
+                    label={getLocaleMessages({id:'Country'})}
+                    rules={[{ required: true, message: 'Please input your Country name!' }]}
+                    >
+                    <Input/>
+                    </Form.Item>
+                    <Form.Item
+                    name={'postal'}
+                    label={getLocaleMessages({id:'Postal Code'})}
+                    rules={[{ required: true, message: 'Please input your Phone!' }]}
+                    >
+                    <Input/>
+                  </Form.Item> */}
+            </Col>
+          </Row>
+
+          <div className="button-center">
+            <Button
+              type="primary"
+              htmlType="create"
+              onClick={onresetboost}
+              className="save-btn"
+            >
+              {getLocaleMessages({ id: 'common.create' })}
+            </Button>
+            {/* <Button type="primary" htmlType="create" className="save-btn">
+                  Reset
+                </Button> */}
+          </div>
+        </Form>
+      </Spin>
+    </Modal>
+  );
+};
+
+export default CreateAddress;

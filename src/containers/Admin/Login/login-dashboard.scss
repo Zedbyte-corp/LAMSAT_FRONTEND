@@ -1,0 +1,10 @@
+.login-dashboard { display: flex; width: 100%; padding: 20px 0; min-height: 100vh; align-items: center; justify-content: center; background: #f1f1f1;
+	.container { max-width: 400px; }
+	.login-box { display: inline-block; width: 100%; background: url(../../../assets/img/login-header-1.png) no-repeat top center, url(../../../assets/img/login-footer.png) no-repeat 0% 102%; background-color: #fff; padding: 30px; padding-top: 220px; padding-bottom: 100px; }
+	.ant-form-item-control-input input { height: 50px; border: 1px solid #eee; font-size: 16px; border-radius: 5px; padding: 0 10px; }
+	.ant-input-affix-wrapper { border: none; padding: 0; position: relative; background: none;
+		input { padding-right: 40px; }
+	}
+	.ant-input-suffix { position: absolute; top: 0; right: 0; width: 30px; height: 50px; text-align: center; }
+	.ant-btn-primary { height: 50px; width: 100%; font-size: 17px; border-radius: 5px;margin: 0; }
+}

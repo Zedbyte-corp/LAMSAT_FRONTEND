@@ -1,0 +1,593 @@
+@media screen and (max-width: 767px) {
+    .mobile-none {
+        display: none;
+    }
+
+    .banner,
+    .detail-header,
+    .listing-header,
+    .select-services,
+    .checkout-section,
+    .myaccount-section {
+        margin-top: 0px !important;
+    }
+
+    .desktop-none {
+        display: block;
+    }
+
+    .btn-discover {
+        padding: 0 20px;
+    }
+
+    .menu-navigation ul li {
+        margin-left: 10px;
+
+        a {
+            font-size: 15px;
+            padding: 6px 10px 10px 10px;
+        }
+    }
+
+    .site-header {
+        .container {
+            display: block;
+        }
+
+        .logo {
+            width: 200px;
+            padding: 10px 0px;
+            display: block;
+            margin: 0 auto;
+
+            img {
+                width: 100%;
+            }
+        }
+
+        .banner-content-box span {
+            padding: 0;
+            margin: 0;
+        }
+
+        .detail-header {
+            padding: 110px 0 10px 0;
+        }
+
+        .search-and-location {
+            .ant-input-affix-wrapper {
+                min-width: 100px;
+            }
+        }
+
+        .search-and-location {
+            .in {
+                font-size: 12px;
+            }
+
+            .location {
+                font-size: 12px;
+            }
+        }
+    }
+
+    .categories {
+        .ant-arrow-icons {
+            right: 0px !important;
+        }
+    }
+
+    .how-it {
+        .ant-card {
+            margin-bottom: 50px;
+            margin-top: 0;
+        }
+
+        .typo {
+            padding-left: 0 !important;
+            padding-bottom: 20px !important;
+            text-align: center !important;
+        }
+
+        .ant-col.ant-col-15.ant-col-sm-12.ant-col-md-12 {
+            width: 100% !important;
+            max-width: 100% !important;
+            padding: 0px 45px !important;
+            flex: 2 0 62.5%;
+        }
+    }
+
+    .featured-saloon {
+        .ant-card-cover img {
+            width: 100%;
+        }
+    }
+
+    .download-app .ant-col.ant-col-sm-24.ant-col-md-12:first-child img {
+        width: 100%;
+        left: 0;
+    }
+
+    .categories {
+        .ant-carousel {
+            .slick-next {
+                display: none !important;
+            }
+
+            .slick-prev {
+                display: none !important;
+            }
+        }
+    }
+
+    .download-app {
+        .links a img {
+            width: 150px;
+            margin: 0 20px;
+        }
+    }
+
+    .banner {
+        .banner-content {
+            margin-top: 0px !important;
+
+            h1.ant-typography {
+                font-size: 30px !important;
+            }
+
+            h3.ant-typography {
+                padding: 0 !important;
+                font-size: 35px;
+                color: #fff;
+                text-shadow: 0px 3px 5px #000;
+            }
+        }
+    }
+
+    .ant-layout-content {
+        .banner {
+            height: 350px;
+        }
+
+        .btn-discover {
+            font-weight: 600;
+            font-size: 16px;
+        }
+    }
+
+    .ant-typography {
+        .heading-2 {
+            font-size: 22px !important;
+        }
+    }
+
+    .listing-header {
+        padding: 90px 25px 15px !important;
+
+        .flex-box {
+            display: contents;
+        }
+
+        h2 {
+            font-size: 18px !important;
+            padding-bottom: 15px;
+        }
+
+        .btn-filter {
+            width: auto !important;
+        }
+
+        .btn-filter span {
+            left: -14px;
+            font-size: 14px;
+            position: relative;
+        }
+    }
+
+    .ant-dropdown.extra-menu.ant-dropdown-placement-bottomRight {
+        left: 200px !important;
+        top: 60px !important;
+    }
+
+    .detail-header {
+        .ant-col-15 {
+            max-width: 100%;
+        }
+
+        .dh-box h2 {
+            font-size: 18px !important;
+
+            .rating {
+                font-size: 14px;
+            }
+        }
+    }
+
+    .detail-header .dh-box .time,
+    .detail-header .dh-box .confirm,
+    .detail-header .dh-box .gender {
+        font-size: 15px !important;
+    }
+
+    .detail-information {
+        padding: 0px 0;
+    }
+
+    .detail-information {
+        h2 {
+            font-size: 20px !important;
+        }
+
+        .ant-col-15 {
+            max-width: 100%;
+            padding-left: 0px !important;
+            padding-right: 0px !important;
+        }
+    }
+
+    .staf-checkbox {
+        .ant-checkbox-wrapper {
+            margin-right: 29px !important;
+        }
+    }
+
+    .listing-contents {
+        margin-top: 20px;
+
+        .venue-near h2 {
+            font-size: 22px;
+            padding-left: 20px;
+        }
+    }
+
+    .login-form {
+        .ant-col.ant-form-item-control {
+            margin: 20px 0;
+        }
+    }
+
+    .ant-dropdown.extra-menu.ant-dropdown-placement-bottomLeft {
+        left: 250px !important;
+        top: 60px !important;
+    }
+
+    .myaccount-section {
+        .profile-box h3 {
+            font-size: 20px !important;
+        }
+
+        p {
+            font-size: 14px !important;
+
+            span {
+                margin-bottom: 10px;
+            }
+
+            .main-box-account {
+                .ant-col-15 {
+                    max-width: 100%;
+                }
+            }
+        }
+    }
+
+    .myaccount-section .main-box-account .ant-col-15 {
+        max-width: 100%;
+    }
+
+    .bookings-tab-design .ant-tabs-tab-active {
+        margin: 0 5px;
+    }
+
+    .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+        font-size: 14px;
+    }
+
+    .ant-menu-submenu-title {
+        font-size: 40px;
+    }
+
+    .ant-carousel .slick-list .slick-slide.slick-active {
+        width: 120px !important;
+    }
+
+    .venue-near {
+        h2 {
+            font-size: 20px !important;
+            padding-left: 20px !important;
+        }
+    }
+
+    .site-footer {
+        h4 {
+            font-size: 18px;
+            padding-top: 20px;
+        }
+    }
+
+    .banner {
+        .banner-content-box h3 {
+            font-size: 30px;
+        }
+    }
+
+    .slick-track {
+        height: 85px;
+    }
+
+    li.ant-menu-item.ant-menu-item-only-child {
+        position: relative;
+        top: -14px;
+    }
+
+    .time-section .main-box .box .ant-radio-button-wrapper {
+        width: 60px;
+        height: 60px;
+        font-size: 14px;
+        margin-right: 5px;
+    }
+
+    .checkout-section .checkout-box .boxed {
+        max-width: 200px;
+        min-width: 245px;
+    }
+
+    .side-carts {
+        width: 100%;
+        min-width: 330px;
+    }
+
+    .site-footer {
+        background: #9c27b0;
+        background: linear-gradient(to right, #381934, #8c1c75, #9c27b0);
+        padding-top: 60px;
+    }
+
+    ul#language-overflowed-indicator\$Menu {
+        padding: 25px 0 0 0;
+    }
+
+    ul#item_1-overflowed-indicator\$Menu {
+        padding: 25px 0 0 0;
+    }
+
+    .myaccount-section .dash-menus {
+        padding-top: 20px;
+    }
+
+    .listing-header {
+        .location {
+            font-size: 16px !important;
+        }
+
+        .show-map {
+            display: none !important;
+        }
+    }
+
+    .search-and-location {
+        display: block;
+        background: #e6e7e9;
+        position: absolute;
+        top: 80px;
+        left: 0;
+        padding: 10px 0 10px 36px;
+    }
+
+    .select-service {
+        .ant-tabs-nav {
+            margin-bottom: 0px;
+            margin-top: 0;
+            width: auto;
+        }
+
+        .ant-tabs-left > .ant-tabs-nav .ant-tabs-tab {
+            margin: 0;
+            padding: 7px 14px;
+            font-size: 15px;
+        }
+
+        .ant-tabs-left
+            > .ant-tabs-content-holder
+            > .ant-tabs-content
+            > .ant-tabs-tabpane {
+            padding: 25px 5px !important;
+            padding-top: 0 !important;
+        }
+
+        .service-content-loop {
+            padding: 7px;
+        }
+
+        .ant-checkbox-wrapper {
+            font-size: 12px;
+        }
+
+        .ant-tabs-content-holder .ant-checkbox-inner {
+            width: 20px;
+            height: 20px;
+        }
+
+        .service-content-loop .title {
+            font-size: 14px;
+            font-weight: 400;
+            margin-left: 10px;
+        }
+
+        .s-timing {
+            font-size: 14px !important;
+            margin-left: 10px;
+        }
+
+        .service-content-loop .s-rate {
+            font-size: 14px !important;
+        }
+
+        .show-more {
+            max-width: 115px !important;
+        }
+
+        .ant-tabs-nav {
+            width: 115px !important;
+        }
+
+        .rating-right.ant-tabs {
+            display: contents;
+        }
+
+        .flex-reviews {
+        }
+    }
+
+    .staf-checkbox div {
+        width: 26% !important;
+        margin: 0 12px;
+        text-align: center !important;
+    }
+
+    .select-service .main-box .ant-radio-button-wrapper {
+        padding: 0px 1px;
+        margin: 0 4px;
+        font-size: 14px;
+        min-width: 35px;
+    }
+
+    .services-detailed-page .select-service .ant-tabs-nav {
+        width: 100% !important;
+    }
+
+    .service_loop label.ant-radio-button-wrapper {
+        margin: 5px 2px;
+        font-size: 15px;
+    }
+
+    .select-service h2 {
+        margin-bottom: 0px;
+        margin-top: 20px;
+    }
+
+    .staf-checkbox {
+        padding-bottom: 0px;
+        margin-bottom: 0px;
+    }
+
+    .checkout-section .ant-col.ant-col-15.ant-col-md-8 {
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+
+    .select-services {
+        padding: 0px 0 0 0;
+    }
+
+    .main-box-account .ant-col.ant-col-6 {
+        width: 100% !important;
+        margin: 0 !important;
+        max-width: 100% !important;
+    }
+
+    .myaccount-section .dash-menus .ant-menu-horizontal .ant-menu-item a {
+        font-size: 15px;
+    }
+
+    header.ant-layout-header.site-header {
+        background: #fff;
+        height: 95px;
+        padding: 0;
+        line-height: inherit;
+        position: relative;
+        z-index: 999;
+        width: 100%;
+        top: 0;
+        left: 0;
+    }
+
+    .myaccount-section .dash-menus {
+        background: #fff;
+    }
+
+    .address-boxed {
+        background: #fff;
+    }
+
+    .content-rating ul.ant-rate.ant-rate-disabled {
+        display: flex;
+        position: relative;
+        top: 0px;
+        left: 120px;
+        padding-top: 45px;
+    }
+
+    .rating-right .ant-tabs-content.ant-tabs-content-left {
+        position: relative;
+        top: 40%;
+        left: -345px;
+        width: 100%;
+        padding-bottom: 300px;
+    }
+
+    .rating-right .rating-img {
+        width: 260px;
+    }
+
+    .detail-header {
+        padding: 100px 0 10px 0 !important;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .ant-layout-content .download-app .links a img {
+        width: 100%;
+        max-width: 130px;
+        margin: 0;
+    }
+
+    .download-app .links {
+        justify-content: center;
+    }
+
+    .ant-layout-content .download-app .links a {
+        margin: 0px;
+    }
+
+    .ant-layout-content {
+        .download-app .p {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .download-app .typo {
+            margin-top: 20px;
+        }
+
+        .site-footer .desc {
+            padding: 0px;
+        }
+
+        .download-app .ant-typography .heading-2 {
+            text-align: center;
+        }
+
+        .featured-saloon .ant-typography .heading-2 {
+            padding-left: 15px;
+        }
+
+        .featured-saloon .ant-card .ant-card-cover {
+            height: 180px;
+        }
+
+        .featured-saloon .ant-card-body {
+            padding: 10px;
+        }
+
+        .fea__saloon .rating b {
+            display: none;
+        }
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 993px) {
+}
+
+@media only screen and (min-width: 994px) and (max-width: 1050px) {
+}
